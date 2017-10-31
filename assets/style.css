@@ -38,7 +38,7 @@ body {
 
 @keyframes throb {
     0% {
-        transform: scale(1);
+        transform: scale(1.025);
     }
     10% {
         transform: scale(1.06);
@@ -56,6 +56,6 @@ body {
         transform: scale(1.10);
     }
     100% {
-        transform: scale(1);
+        transform: scale(1.025);
     }
 }

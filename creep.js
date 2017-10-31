@@ -86,9 +86,13 @@ function tryGlitch() {
     if (document.hidden)
         return
 
-    if (Math.random() >= 0.5) {
+    if (Math.random() >= 0.98) {
         overlay.style.filter += " invert(100%) brightness(200%) contrast(200%)"
         glitch.play()
+        window.setTimeout(function() {
+            glitch.pause()
+            glitch.currentTime = 0
+        }, 150)
     }
 }
 
