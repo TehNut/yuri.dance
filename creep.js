@@ -3,6 +3,7 @@ var body
 var stage
 var eyes
 var yuri
+var overlay
 var heartbeat = new Audio("assets/audio/heartbeat.ogg")
 
 // Don't actually run anything until the page is loaded
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     stage = document.getElementsByClassName("stage")[0]
     eyes = document.getElementsByClassName("eyes")[0]
     yuri = document.getElementsByClassName("yuri")[0]
+    overlay = document.getElementsByClassName("overlay")[0]
     // Initially sets the eye margin so it sits on top of Yuri's face instead of way below
     fixEyeLocation()
 
@@ -37,7 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 2000)
 
     // Starts the heartbeat sound
-    // heartbeat.play() TODO - Uncomment when it stops being annoying :aquaThumbsUp:
+    heartbeat.play() // TODO - Uncomment when it stops being annoying :aquaThumbsUp:
+    bounceZoom()
 
     // When the window resizes, we need to fix the eye location again
     window.addEventListener("resize", fixEyeLocation)
@@ -68,10 +71,12 @@ function fixEyeLocation() {
 }
 
 function bounceZoom() {
-    var zoomLevel = 0;
-    var animation = window.setInterval(function() {
-
-    }, 1)
+    overlay.style.animationName = "throb";
+    overlay.style.filter = "blur(2px)"
+    window.setTimeout(function() {
+        overlay.style.animationName = "";
+        overlay.style.filter = "";
+    }, 600);
 }
 
 function getStageOffset() {
