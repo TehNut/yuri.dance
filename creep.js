@@ -5,6 +5,7 @@ var eyes
 var yuri
 var overlay
 var heartbeat = new Audio("assets/audio/heartbeat.ogg")
+var glitch = new Audio("assets/audio/glitch.ogg")
 
 // Don't actually run anything until the page is loaded
 document.addEventListener("DOMContentLoaded", function() {
@@ -32,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }, false);
     heartbeat.loop = false
+    glitch.loop = false
 
     // Schedule an eye movement every 2 seconds
     window.setInterval(function() {
@@ -73,10 +75,21 @@ function fixEyeLocation() {
 function bounceZoom() {
     overlay.style.animationName = "throb";
     overlay.style.filter = "blur(2px)"
+    tryGlitch()
     window.setTimeout(function() {
         overlay.style.animationName = "";
         overlay.style.filter = "";
-    }, 600);
+    }, 700);
+}
+
+function tryGlitch() {
+    if (document.hidden)
+        return
+
+    if (Math.random() >= 0.5) {
+        overlay.style.filter += " invert(100%) brightness(200%) contrast(200%)"
+        glitch.play()
+    }
 }
 
 function getStageOffset() {
