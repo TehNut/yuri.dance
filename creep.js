@@ -86,12 +86,12 @@ function tryGlitch() {
     if (document.hidden)
         return
 
-    if (Math.random() >= 0.98) {
-        var filters = " invert(100%) brightness(200%) contrast(200%)"
-        overlay.style.filter += filters
+    if (Math.random() >= 0.5) {
+        var filters = "invert(100%) brightness(200%) contrast(200%)"
+        yuri.style.filter = filters
         glitch.play()
         window.setTimeout(function() {
-            overlay.style.filter = overlay.style.filter.replace(filters, "")
+            yuri.style.filter = ""
             glitch.pause()
             glitch.currentTime = 0
         }, 150)
