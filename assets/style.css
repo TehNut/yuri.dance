@@ -5,7 +5,7 @@ body {
 .stage {
     width: 50%;
     height: 100%;
-    margin: auto;
+	transform-origin: 0% 50%;
 }
 
 .yuri {
@@ -32,6 +32,11 @@ body {
     z-index: 3;
     animation-duration: 0.7s;
     animation-timing-function: linear;
+}
+
+.overlay.afterHidden {
+	background-image: url("img/bg2.png");
+	animation-duration: 0.93s;
 }
 
 /* Animation keyframes */
