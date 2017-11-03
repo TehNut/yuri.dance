@@ -1,3 +1,5 @@
+.htaccess
 .ftpconfig
 *.iml
 /.idea
+/error_docs
