@@ -4,14 +4,14 @@ var stage
 var eyes
 var yuri
 var overlay
+var face
 var stageScale = 1
 var heartbeat = new Audio("assets/audio/heartbeat.ogg")
 var glitch = new Audio("assets/audio/glitch.ogg")
 var loopFrame
 var loop
 var eyeLoop
-var afterHidden = false
-var afterReturn = false
+var state = 0
 
 // Don't actually run anything until the page is loaded
 document.addEventListener("DOMContentLoaded", function() {
@@ -32,26 +32,43 @@ document.addEventListener("DOMContentLoaded", function() {
 	var onHeartbeat = function() {
         var buffer = .40
         if (this.currentTime > this.duration - buffer) {
-			if (!document.hidden || afterReturn || (document.hidden && !afterHidden && Math.random() < 0.98)) {
+			if (!document.hidden || state == 3 || (document.hidden && state == 0 && Math.random() < 0.98)) {
 				this.currentTime = 0
 				this.play()
 				bounceZoom()
-			} else if (!afterHidden) {
-				afterHidden = true
-				console.log("nao")
+			} else if (state == 0) {
+				state = 1
 				overlay.className += " afterHidden"
 				eyes.src = eyes.src.replace("eyes", "eyes2")
+				stage.style.paddingLeft = stage.offsetWidth + "px"
 				var returnLoop = window.setInterval(function() {
 					if (!document.hidden) {
-						afterReturn = true
-						window.clearInterval(returnLoop)
-						window.clearInterval(eyeLoop)
-						eyes.style.marginLeft = 0
-						eyes.style.marginTop = -yuri.offsetHeight
-						heartbeat = new Audio("assets/audio/heartbeat_lower.ogg")
-						heartbeat.addEventListener('timeupdate', onHeartbeat, false)
-						heartbeat.play()
-						bounceZoom()
+						if (state == 1) {
+							state = 2
+							window.clearInterval(eyeLoop)
+							eyes.style.marginLeft = 0
+							eyes.style.marginTop = -yuri.offsetHeight + "px"
+							face = document.createElement('div')
+							face.style.pointerEvents = "all"
+							face.style.zIndex = 4
+							face.style.position = "absolute"
+							face.onmouseover = function() {
+								this.onmouseover = null
+								state = 3
+								this.remove(0)
+								stage.style.transition = "padding-left 45s"
+								stage.style.paddingLeft = 0
+							}
+							updateFaceCoords()
+							document.body.prepend(face)
+							face.style.backgroundColor = "red"
+						} else if (state == 3) {
+							window.clearInterval(returnLoop)
+							heartbeat = new Audio("assets/audio/heartbeat_lower.ogg")
+							heartbeat.addEventListener('timeupdate', onHeartbeat, false)
+							heartbeat.play()
+							bounceZoom()
+						}
 					}
 				}, 1000)
 			}
@@ -80,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var maxTime = 40000
 		loopFrame = 0
         loop = window.setInterval(function() {
-			var hidden = afterHidden && !afterReturn
+			var hidden = state == 1
 			if (!hidden || loopFrame < 30000) {
 				if (hidden) {
 					loopFrame = 30000
@@ -106,11 +123,31 @@ function moveEyes() {
 function fixOffsets() {
 	stage.style.marginLeft = calcStageLeft()
     eyes.style.marginTop = -yuri.offsetHeight + "px"
+	if (state == 2) {
+		stage.paddingLeft = stage.innerWidth
+		updateFaceCoords()
+	}
 }
 
 function calcStageLeft() {
 	var yuriWidth = yuri.offsetWidth * stageScale
 	return ((window.innerWidth / 2) - (yuriWidth / 2)) + ((yuriWidth * 0.07) * (loopFrame / 40000))
+}
+
+function updateFaceCoords() {
+	var bgDimRatio = overlay.offsetHeight / overlay.offsetWidth
+	if (bgDimRatio <= 0.5625) {
+		face.style.left = 0.466 * overlay.offsetWidth
+	} else {
+		face.style.left = 0.466 * (overlay.offsetHeight / 0.5625)
+	}
+	if (bgDimRatio <= 0.5625) {
+		face.style.top = 0.369 * (overlay.offsetWidth * 0.5625)
+	} else {
+		face.style.top = 0.369 * overlay.offsetHeight
+	}
+	face.style.width = (overlay.offsetWidth * 0.042) + "px"
+	face.style.height = (overlay.offsetHeight * 0.069) + "px"
 }
 
 function bounceZoom() {
@@ -124,7 +161,7 @@ function bounceZoom() {
 }
 
 function tryGlitch() {
-    if (!document.hidden && Math.random() >= (afterReturn ? 0.95 : 0.99)) {
+    if (!document.hidden && Math.random() >= (state == 3 ? 0.95 : 0.99)) {
         var filters = "invert(100%) brightness(200%) contrast(200%)"
         yuri.style.filter = filters
         glitch.play()
