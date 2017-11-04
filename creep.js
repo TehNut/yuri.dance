@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
 							}
 							updateFaceCoords()
 							document.body.prepend(face)
-							face.style.backgroundColor = "red"
 						} else if (state == 3) {
 							window.clearInterval(returnLoop)
 							heartbeat = new Audio("assets/audio/heartbeat_lower.ogg")
