@@ -17,8 +17,6 @@ var state = 0
 document.addEventListener("DOMContentLoaded", function() {
     // Makes sure the scroll bars don't show up
     document.getElementsByTagName("html")[0].style.overflow="hidden"
-    // Darken the page
-    document.getElementsByTagName("body")[0].style.filter="brightness(0.1)"
 
     // Assign the vars above
     body = document.getElementsByTagName("body")[0]
@@ -39,7 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			} else if (state == 0) {
 				state = 1
 				overlay.className += " afterHidden"
-				eyes.src = eyes.src.replace("eyes", "eyes2")
+				yuri.src = yuri.src.replace("yuri.", "yuri2.")
+				eyes.src = eyes.src.replace("eyes.", "eyes2.")
 				stage.style.paddingLeft = stage.offsetWidth + "px"
 				var returnLoop = window.setInterval(function() {
 					if (!document.hidden) {
