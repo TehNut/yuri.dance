@@ -62,6 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
 							document.body.prepend(face)
 						} else if (state == 3) {
 							window.clearInterval(returnLoop)
+							eyeLoop = window.setInterval(function() {
+								moveEyes()
+							}, 25)
 							heartbeat = new Audio("assets/audio/heartbeat_lower.ogg")
 							heartbeat.addEventListener('timeupdate', onHeartbeat, false)
 							heartbeat.play()
@@ -114,8 +117,8 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 function moveEyes() {
-    eyes.style.marginLeft = getRandomArbitrary(0, 15) + "px"
-    eyes.style.marginTop = -yuri.offsetHeight + getRandomArbitrary(-3, 5) + "px"
+    eyes.style.marginLeft = (state == 3 ? getRandomArbitrary(-2, 1) : getRandomArbitrary(0, 15)) + "px"
+    eyes.style.marginTop = -yuri.offsetHeight + (state == 3 ? getRandomArbitrary(-2, 1) : getRandomArbitrary(-3, 5)) + "px"
 }
 
 function fixOffsets() {
