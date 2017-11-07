@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			} else if (state == 0) {
 				state = 1
 				overlay.className += " afterHidden"
-				yuri.src = yuri.src.replace("yuri.", "yuri2.")
-				eyes.src = eyes.src.replace("eyes.", "eyes2.")
+				yuri.src = yuri.src.replace("yuri.png", "yuri2.png")
+				eyes.src = eyes.src.replace("eyes.png", "eyes2.png")
 				stage.style.paddingLeft = stage.offsetWidth + "px"
 				var returnLoop = window.setInterval(function() {
 					if (!document.hidden) {
