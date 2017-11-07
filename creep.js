@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
     overlay = document.getElementsByClassName("overlay")[0]
     // Initially sets the eye margin so it sits on top of Yuri's face instead of way below
     fixOffsets()
-	
+
 	var onHeartbeat = function() {
         var buffer = .40
         if (this.currentTime > this.duration - buffer) {
@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
 							heartbeat = new Audio("assets/audio/heartbeat_lower.ogg")
 							heartbeat.addEventListener('timeupdate', onHeartbeat, false)
 							heartbeat.play()
+							heartbeat.volume = 0.5
 							bounceZoom()
 						}
 					}
@@ -79,7 +80,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Setup heartbeat sound so it loops with a much less noticable gap. Still not perfect.
     heartbeat.addEventListener('timeupdate', onHeartbeat, false)
     heartbeat.loop = false
+    heartbeat.volume = 0.5
     glitch.loop = false
+    glitch.volume = 0.5
 
     // Schedule an eye movement every 2 seconds
     eyeLoop = window.setInterval(function() {
@@ -113,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
         }, 10)
     }, 1)
-	
 })
 
 function moveEyes() {
