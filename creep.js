@@ -17,8 +17,6 @@ var state = 0
 document.addEventListener("DOMContentLoaded", function() {
     // Makes sure the scroll bars don't show up
     document.getElementsByTagName("html")[0].style.overflow="hidden"
-    // Darken the page
-    document.getElementsByTagName("body")[0].style.filter="brightness(0.1)"
 
     // Assign the vars above
     body = document.getElementsByTagName("body")[0]
@@ -39,7 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			} else if (state == 0) {
 				state = 1
 				overlay.className += " afterHidden"
-				eyes.src = eyes.src.replace("eyes", "eyes2")
+				yuri.src = yuri.src.replace("yuri.", "yuri2.")
+				eyes.src = eyes.src.replace("eyes.", "eyes2.")
 				stage.style.paddingLeft = stage.offsetWidth + "px"
 				var returnLoop = window.setInterval(function() {
 					if (!document.hidden) {
@@ -63,6 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
 							document.body.prepend(face)
 						} else if (state == 3) {
 							window.clearInterval(returnLoop)
+							eyeLoop = window.setInterval(function() {
+								moveEyes()
+							}, 25)
 							heartbeat = new Audio("assets/audio/heartbeat_lower.ogg")
 							heartbeat.addEventListener('timeupdate', onHeartbeat, false)
 							heartbeat.play()
@@ -117,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 function moveEyes() {
-    eyes.style.marginLeft = getRandomArbitrary(0, 15) + "px"
-    eyes.style.marginTop = -yuri.offsetHeight + getRandomArbitrary(-3, 5) + "px"
+    eyes.style.marginLeft = (state == 3 ? getRandomArbitrary(-2, 1) : getRandomArbitrary(0, 15)) + "px"
+    eyes.style.marginTop = -yuri.offsetHeight + (state == 3 ? getRandomArbitrary(-2, 1) : getRandomArbitrary(-3, 5)) + "px"
 }
 
 function fixOffsets() {

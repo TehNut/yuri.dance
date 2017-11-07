@@ -37,9 +37,22 @@ body {
     animation-timing-function: linear;
 }
 
+.overlay::before {
+	content: '';
+	position: absolute;
+	background-color: #000;
+	opacity: 0.9;
+	width: 100%;
+	height: 100%;
+}
+
 .overlay.afterHidden {
 	background-image: url("img/bg2.png");
 	animation-duration: 0.93s;
+}
+
+.overlay:not(.afterHidden) > div {
+	filter: brightness(0.1);
 }
 
 /* Animation keyframes */
