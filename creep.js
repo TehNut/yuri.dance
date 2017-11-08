@@ -155,7 +155,7 @@ function updateFaceCoords() {
 
 function bounceZoom() {
     overlay.style.animationName = "throb"
-    overlay.style.filter = "blur(2px)"
+    overlay.style.filter = "blur(1px)"
     tryGlitch()
     window.setTimeout(function() {
         overlay.style.animationName = ""
