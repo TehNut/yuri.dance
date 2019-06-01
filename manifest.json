@@ -3,9 +3,9 @@
     "name": "Yuri.dance",
     "icons": [
         {
-            "src": "/assets/yuri.png",
+            "src": "/assets/img/PWA-icon.png",
             "type": "image/png",
-            "sizes": "1508x1508"
+            "sizes": "508x508"
         }
     ],
     "display": "fullscreen",
