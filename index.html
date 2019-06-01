@@ -3,8 +3,19 @@
 		<title>Yuri "Dance"</title>
 		<link rel="stylesheet" href="assets/style.css">
 		<link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-		<script src="creep.js"></script>
+        <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+        <link rel="manifest" href="/manifest.json">
+        <script src="creep.js"></script>
+        
+        <script>
+            if('serviceWorker' in navigator){
+                navigator.serviceWorker
+                    .register('/service-worker.js')
+                    .then(() => {
+                        console.log('Service Worker Registered')
+                    });
+            }
+        </script>
     </head>
     <body>
         <div class="overlay">
