@@ -3,3 +3,5 @@
 *.iml
 /.idea
 /error_docs
+
+.DS_Store

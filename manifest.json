@@ -1,0 +1,13 @@
+{
+    "short_name": "Yuri.dance",
+    "name": "Yuri.dance",
+    "icons": [
+        {
+            "src": "/assets/img/PWA-icon.png",
+            "type": "image/png",
+            "sizes": "508x508"
+        }
+    ],
+    "display": "fullscreen",
+    "theme_color": "#6200ff"
+}
